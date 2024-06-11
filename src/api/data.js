@@ -77,6 +77,9 @@ router.delete('/', async (req, res) => {
     case 'todos':
       text = 'DELETE FROM todos WHERE id = $1';
       break;
+    case 'lww':
+      text = 'DELETE FROM lww WHERE id = $1';
+      break;
     default:
       break;
   }
@@ -115,6 +118,11 @@ const upsert = async (body, res) => {
         data.completed_by,
         data.list_id
       ];
+      break;
+    case 'lww':
+      text =
+        'INSERT INTO lww(id, k, v) VALUES ($1, $2, $3) ON CONFLICT (id) DO UPDATE SET v = EXCLUDED.v';
+      values = [data.id, data.k, data.v];
       break;
     default:
       break;
