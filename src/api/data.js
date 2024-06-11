@@ -121,8 +121,8 @@ const upsert = async (body, res) => {
       break;
     case 'lww':
       text =
-        'INSERT INTO lww(id, k, v) VALUES ($1, $2, $3) ON CONFLICT (id) DO UPDATE SET v = EXCLUDED.v';
-      values = [data.id, data.k, data.v];
+        'INSERT INTO lww(id, v) VALUES ($1, $2) ON CONFLICT (id) DO UPDATE SET v = EXCLUDED.v';
+      values = [data.id, data.v];
       break;
     default:
       break;
